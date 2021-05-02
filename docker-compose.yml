@@ -87,7 +87,7 @@ services:
   pubDb:
     image: postgres:13-alpine
     volumes:
-        - ./tmp-docker-vol/postgres:/var/lib/postgresql/data
+        - ./tmp-docker-vol/postgres:/temp/lib/postgresql/data
     environment:
         - POSTGRES_PASSWORD=pubDb
         - POSTGRES_DATABASE=pubDb
