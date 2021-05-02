@@ -1,0 +1,41 @@
+{
+  "name": "subscriber1",
+  "version": "1.0.0",
+  "description": "receives topic from publishes",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "forever ./server.js",
+    "start-dev": "cross-env NODE_ENV=development PORT=9000 nodemon node server.js",
+    "test": "cross-env NODE_ENV=test sh ./docker/test.sh",
+    "run:test": "cross-env NODE_ENV=test PORT=6000 nyc mocha test/**/*.js --exit"
+  },
+  "author": "kevin",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "express": "^4.17.1",
+    "logger-nodejs": "^1.1.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.6.0",
+    "validatorjs": "^3.22.1",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "esm": "^3.2.25",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.19.4",
+    "should": "^13.2.3"
+  }
+}
