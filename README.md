@@ -43,7 +43,12 @@ Docker, Node/Express, Mocha and chai etc
    ```
    docker logs -f http-notification_subscriber2_1
    ```
-
+## Run Test
+* Get into publisher container terminal with this command
+    ```
+    docker exec -it http-notification_publisher_1 bash
+    ```
+* Within the container terminal, run `npm test`
 ## Documentation
 ### Account
 * Create an account: Accounts are created on publisher server
@@ -167,7 +172,7 @@ Docker, Node/Express, Mocha and chai etc
     ```
 
 ### Subscription
-* List of available endpoint for subscription on subscriver1 server
+* List of available endpoint for subscription on subscriber1 server
 
     ```
     http://localhost:9000/test1
@@ -179,7 +184,7 @@ Docker, Node/Express, Mocha and chai etc
     http://127.0.0.1:9000/test2
     ```
 
-* List of available endpoint/url for subscription on subscriver2 server
+* List of available endpoint/url for subscription on subscriber2 server
 
     ```
     http://localhost:5000/test1
