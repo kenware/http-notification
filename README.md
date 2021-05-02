@@ -144,6 +144,7 @@ Docker, Node/Express, Mocha and chai etc
     **Request**
 
     Grab the token from the account login
+
     ```
     GET
         headers = { authorization: 'Bearer <token>'}
@@ -166,7 +167,7 @@ Docker, Node/Express, Mocha and chai etc
     ```
 
 ### Subscription
-* List of valid endpoint for subscription on subscriver1 server
+* List of available endpoint for subscription on subscriver1 server
 
     ```
     http://localhost:9000/test1
@@ -178,7 +179,7 @@ Docker, Node/Express, Mocha and chai etc
     http://127.0.0.1:9000/test2
     ```
 
-* List of valid endpoint/url for subscription on subscriver2 server
+* List of available endpoint/url for subscription on subscriver2 server
 
     ```
     http://localhost:5000/test1
@@ -195,6 +196,7 @@ Docker, Node/Express, Mocha and chai etc
     **Request**
 
     Grab the token from the account login
+
     Grab topic name from the list of topics above
     ```
     POST
@@ -221,7 +223,8 @@ Docker, Node/Express, Mocha and chai etc
 
   **Request**
 
-  Grab the token from the account login
+  Grab the token from the account login.
+
   Grab topic name from the list of topics above
 
   ```
@@ -249,16 +252,7 @@ Docker, Node/Express, Mocha and chai etc
         "message": "Success",
         "status": 201
     },
-    {
-        "url": "http://localhost:9000/test2",
-        "message": "Success",
-        "status": 201
-    },
-    {
-        "url": "http://localhost:9000/test1",
-        "message": "Success",
-        "status": 201
-    }
+    ...
     ]
    ```
 * Confirm that the subscriber servers logs the data published to them in the console.
