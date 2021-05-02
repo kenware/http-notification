@@ -1,0 +1,95 @@
+version: '2.4'
+services:
+  proxy:
+    image: traefik:alpine   # the official Traefik docker image
+    command: --api --docker # enables the web UI and tells Traefik to listen to docker
+    ports:
+        - 80:80     # the HTTP port
+        - 8080:8080 # the Web UI (enabled by --api)
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ./proxy/traefik.toml:/etc/traefik/traefik.toml
+
+  publisher:
+    build: ./publisher
+    image: publisher
+    cpu_shares: 2048
+    volumes:
+        - ./publisher:/usr/src/app/
+    command: bash -c "npm install && bash ./docker/run.sh"
+    environment:
+        - ENV=local
+        - PORT=8000
+        - NODE_ENV=development
+        - DB_USER=pubDb
+        - DB_PASS=pubDb
+        - DB_HOST=pubDb
+        - DB_NAME=pubDb
+        - DB_DIALECT=postgres
+        - TEST_DB_NAME=testpubDb
+        - APP_SECRETE=bgtdjbsgg122budgitgeghhjlejhgst
+    links:
+        - pubDb
+    ports:
+        - 8000:8000
+    expose:
+        - "8000"
+    labels:
+        - traefik.enable=true
+        - traefik.backend=publisher
+        - traefik.port=8000
+        - traefik.frontend.passHostHeader=true
+        - traefik.frontend.rule=Host:publisher.notification.com
+
+  subscriber1:
+    build: ./subscriber1
+    image: subscriber1
+    cpu_shares: 2048
+    volumes:
+        - ./subscriber1:/usr/src/app/
+    command: bash -c "npm install && bash ./docker/run.sh"
+    environment:
+        - ENV=local
+        - PORT=9000
+    ports:
+        - 9000:9000
+    expose:
+        - "9000"
+    
+    labels:
+        - traefik.enable=true
+        - traefik.backend=subscriber1
+        - traefik.port=9000
+        - traefik.frontend.passHostHeader=true
+        - traefik.frontend.rule=Host:subscriber1.notification.com;PathPrefix:/api
+  
+  subscriber2:
+    build: ./subscriber2
+    image: subscriber2
+    cpu_shares: 2048
+    volumes:
+        - ./subscriber2:/usr/src/app/
+    command: bash -c "npm install && bash ./docker/run.sh"
+    environment:
+        - ENV=local
+        - PORT=5000
+    ports:
+        - 5000:5000
+    expose:
+        - "5000"
+    labels:
+        - traefik.enable=true
+        - traefik.backend=subscriber2
+        - traefik.port=5000
+        - traefik.frontend.passHostHeader=true
+        - traefik.frontend.rule=Host:subscriber2.notification.com;PathPrefix:/api
+
+  pubDb:
+    image: postgres:13-alpine
+    volumes:
+        - ./tmp-docker-vol/postgres:/var/lib/postgresql/data
+    environment:
+        - POSTGRES_PASSWORD=pubDb
+        - POSTGRES_DATABASE=pubDb
+        - POSTGRES_USER=pubDb
+
