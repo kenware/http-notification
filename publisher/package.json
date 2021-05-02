@@ -1,0 +1,63 @@
+{
+  "name": "publisher",
+  "version": "1.0.0",
+  "description": "publishes topic to servers",
+  "main": "server.js",
+  "scripts": {
+    "start": "forever -c babel-node server.js",
+    "start-dev": "cross-env NODE_ENV=development PORT=8000 nodemon --exec babel-node server.js",
+    "test": "cross-env NODE_ENV=test sh ./docker/test.sh",
+    "run:test": "cross-env NODE_ENV=test PORT=6000 nyc mocha tests/tests/*.js --exit"
+  },
+  "author": "kevin",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "logger-nodejs": "^1.1.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.6.0",
+    "sequelize": "^6.6.2",
+    "validatorjs": "^3.22.1",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.13.13",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/register": "^7.4.0",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-istanbul": "^6.0.0",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "esm": "^3.2.25",
+    "mocha": "^6.1.4",
+    "nock": "^13.0.11",
+    "nodemon": "^1.19.4",
+    "nyc": "^14.0.0",
+    "should": "^13.2.3"
+  },
+  "nyc": {
+    "require": [
+      "@babel/register",
+      "@babel/polyfill"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  }
+}
