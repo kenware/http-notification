@@ -6,9 +6,7 @@
   "main": "server.js",
   "scripts": {
     "start": "forever ./server.js",
-    "start-dev": "cross-env NODE_ENV=development PORT=9000 nodemon node server.js",
-    "test": "cross-env NODE_ENV=test sh ./docker/test.sh",
-    "run:test": "cross-env NODE_ENV=test PORT=6000 nyc mocha test/**/*.js --exit"
+    "start-dev": "cross-env NODE_ENV=development PORT=9000 nodemon node server.js"
   },
   "author": "kevin",
   "license": "MIT",
