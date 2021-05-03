@@ -3,6 +3,12 @@ import config from '../config';
 import Handler from '../utils/handler';
 
 export default class Auth {
+  /**
+   * @param {object} ctx
+   * @param {req} ctx.request
+   * @param {res} ctx.response
+   * @param {Function} next
+   */
   static async Authenticate(req, res, next) {
     try {
       if (req.headers.authorization) {

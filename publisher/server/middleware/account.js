@@ -4,6 +4,12 @@ import Handler from '../utils/handler';
 import Models from '../models';
 
 export default class Account {
+  /**
+   * @param {object} ctx
+   * @param {req} ctx.request
+   * @param {res} ctx.response
+   * @param {Function} next
+   */
   static async create(req, res, next) {
     const { email, password } = req.body;
     const rules = {
@@ -28,6 +34,12 @@ export default class Account {
     }
   }
 
+  /**
+   * @param {object} ctx
+   * @param {req} ctx.request
+   * @param {res} ctx.response
+   * @param {Function} next
+   */
   static async login(req, res, next) {
     const rules = {
       email: 'required|email',
