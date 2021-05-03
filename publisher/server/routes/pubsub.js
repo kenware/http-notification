@@ -5,13 +5,13 @@ import Auth from '../middleware/auth';
 
 const router = express.Router();
 
-router.post('/subscribe/:topic',
+router.post('/subscribe/:topicId',
   Auth.Authenticate,
   PubSubMiddleware.validateTopic,
   PubSubMiddleware.subscription,
   PubSubController.subscription);
 
-router.post('/publish/:topic',
+router.post('/publish/:topicId',
   Auth.Authenticate,
   PubSubMiddleware.validateTopic,
   PubSubMiddleware.publish,

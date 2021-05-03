@@ -14,7 +14,7 @@ app.use(express.urlencoded({
   extended: true,
 }));
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
-app.use(Route);
+app.use('/api/v1', Route);
 app.use('*', (req, res) => res.status(404).json('Not Found'));
 const PORT = process.env.PORT || '9000';
 app.listen(PORT, () => {

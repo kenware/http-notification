@@ -16,7 +16,7 @@ describe('Test account', () => {
   describe('POST /', () => {
     it('should create user account', (done) => {
       chai.request(app)
-        .post('/account/create')
+        .post('/api/v1/account/create')
         .send(testUser)
         .end((err, res) => {
           res.should.have.status(201);
@@ -29,7 +29,7 @@ describe('Test account', () => {
   });
   it('should login account', (done) => {
     chai.request(app)
-      .post('/account/login')
+      .post('/api/v1/account/login')
       .send(accounts[0])
       .end((err, res) => {
         res.should.have.status(200);

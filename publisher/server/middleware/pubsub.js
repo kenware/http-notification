@@ -12,17 +12,10 @@ export default class PubSub {
    */
   static async subscription(req, res, next) {
     const { url } = req.body;
-    const { topic } = req.params;
 
-    const rules = {
-      topic: 'required|string',
-    };
-
-    const validation = new Validator({ url, topic }, rules);
-
-    if (!Handler.isUrl(url) || validation.fails()) {
+    if (!Handler.isUrl(url)) {
       const error = { url: ['Invalid url parameter'] };
-      return Handler.errorHandler(req, res, { ...error, ...validation.errors.errors }, 400);
+      return Handler.errorHandler(req, res, error, 400);
     }
     // Initial handshake between publisher and subscriber during subscription
     try {
@@ -40,9 +33,18 @@ export default class PubSub {
    * @param {Function} next
    */
   static async validateTopic(req, res, next) {
-    const { topic } = req.params;
+    const { topicId } = req.params;
+
+    const rules = {
+      topicId: 'required|numeric',
+    };
+    const validation = new Validator({ topicId }, rules);
+    if (validation.fails()) {
+      return Handler.errorHandler(req, res, validation.errors.errors, 400);
+    }
+
     try {
-      const where = { accountId: req.decoded.id, name: topic };
+      const where = { accountId: req.decoded.id, id: topicId };
       const topicExist = await Models.Topic.findOne({ where });
       if (!topicExist) {
         const message = 'The specied topic does not exist in your account';
@@ -55,6 +57,12 @@ export default class PubSub {
     }
   }
 
+  /**
+   * @param {object} ctx
+   * @param {req} ctx.request
+   * @param {res} ctx.response
+   * @param {Function} next
+   */
   static publish(req, res, next) {
     if (Handler.isObject(req.body) && Object.keys(req.body).length > 0) {
       return next();

@@ -28,7 +28,6 @@ describe('Test subscription and publish', () => {
     await createSubscription(topic[0], `${url}/api/v1/test2`);
     // create subscription with unreachable endpoint
     await createSubscription(topic[0], `${url}/api/v1/test3`);
-
     nock.cleanAll();
 
     // Mock the second subscriber endpoint to be unreachable
@@ -49,7 +48,7 @@ describe('Test subscription and publish', () => {
   describe('POST /', () => {
     it('should create subscriptions', (done) => {
       chai.request(app)
-        .post(`/subscribe/${topic[0].name}`)
+        .post(`/api/v1/subscribe/${topic[0].id}`)
         .set('authorization', `Bearer ${userData[0].token}`)
         .send({ url: `${url}/api/v1/test1` })
         .end((err, res) => {
@@ -64,7 +63,7 @@ describe('Test subscription and publish', () => {
 
   it('should publish to topics', (done) => {
     chai.request(app)
-      .post(`/publish/${topic[0].name}`)
+      .post(`/api/v1/publish/${topic[0].id}`)
       .set('authorization', `Bearer ${userData[0].token}`)
       .send({ message: 'test publishing message' })
       .end((err, res) => {
@@ -78,7 +77,7 @@ describe('Test subscription and publish', () => {
 
   it('should fail to create subscription with invalid url', (done) => {
     chai.request(app)
-      .post(`/subscribe/${topic[0].name}`)
+      .post(`/api/v1/subscribe/${topic[0].id}`)
       .set('authorization', `Bearer ${userData[0].token}`)
       .send({ url: 'invalidurl/api/v1/test1' })
       .end((err, res) => {
@@ -91,7 +90,7 @@ describe('Test subscription and publish', () => {
 
   it('should fail to create subscription with non existent topic', (done) => {
     chai.request(app)
-      .post('/subscribe/non existent')
+      .post('/api/v1/subscribe/-456')
       .set('authorization', `Bearer ${userData[0].token}`)
       .send({ url: `${url}/api/v1/test1` })
       .end((err, res) => {
@@ -109,7 +108,7 @@ describe('Test subscription and publish', () => {
       .reply(400, 'unreachable');
 
     chai.request(app)
-      .post(`/publish/${topic[0].name}`)
+      .post(`/api/v1/publish/${topic[0].id}`)
       .set('authorization', `Bearer ${userData[0].token}`)
       .send({ message: 'test publishing message' })
       .end((err, res) => {

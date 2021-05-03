@@ -40,7 +40,7 @@ export default class PubSub {
       const requestData = { topic: topic.name, data: req.body };
       const allResponse = await Promise.all(
         subs.map(async (sub) => {
-          const responseData = { url: sub.url };
+          const responseData = { url: sub.url, topic: topic.name };
           try {
             await axios.post(Handler.getUrl(sub.url), requestData);
             responseData.message = 'Success';
