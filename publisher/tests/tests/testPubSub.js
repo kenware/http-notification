@@ -40,6 +40,10 @@ describe('Test subscription and publish', () => {
     interceptor
       .post('/api/v1/test2', { topic: topic[0].name, data: { message: 'test publishing message' } })
       .reply(201, { message: 'test publishing message' });
+
+    interceptor
+      .post('/api/v1/test1', { ping: 'ok' })
+      .reply(201, { message: 'test publishing message' });
   });
 
   describe('POST /', () => {
