@@ -90,7 +90,7 @@ Docker, Node/Express, Mocha and chai etc
     **Request**
     ```
     POST 
-    http://localhost:8000/account/create
+    http://localhost:8000/api/v1/account/create
     {
         "name": "andela",
         "email": "andela.account@andela.com",
@@ -118,7 +118,7 @@ Docker, Node/Express, Mocha and chai etc
     **Request**
     ```
     POST 
-    http://localhost:8000/account/login
+    http://localhost:8000/api/v1/account/login
         {
         "email": "andela.account@andela.com",
         "password": "andelaaccount"
@@ -160,7 +160,7 @@ Docker, Node/Express, Mocha and chai etc
     POST
         headers = { authorization: 'Bearer <token>'}
 
-        http://localhost:8000/topic
+        http://localhost:8000/api/v1/topic
 
         {
         "name": "Test topic"
@@ -188,7 +188,7 @@ Docker, Node/Express, Mocha and chai etc
     GET
         headers = { authorization: 'Bearer <token>'}
 
-        http://localhost:8000/topic
+        http://localhost:8000/api/v1/topic
     ```
 
     **Response**
@@ -209,25 +209,25 @@ Docker, Node/Express, Mocha and chai etc
 * List of available endpoint for subscription on subscriber1 server
 
     ```
-    http://localhost:9000/test1
-    http://localhost:9000/test2
+    http://localhost:9000/api/v1/test1
+    http://localhost:9000/api/v1/test2
 
     or 
 
-    http://127.0.0.1:9000/test1
-    http://127.0.0.1:9000/test2
+    http://127.0.0.1:9000/api/v1/test1
+    http://127.0.0.1:9000/api/v1/test2
     ```
 
 * List of available endpoint/url for subscription on subscriber2 server
 
     ```
-    http://localhost:5000/test1
-    http://localhost:5000/test2
+    http://localhost:5000/api/v1/test1
+    http://localhost:5000/api/v1/test2
 
     or 
 
-    http://127.0.0.1:5000/test1
-    http://127.0.0.1:5000/test2
+    http://127.0.0.1:5000/api/v1/test1
+    http://127.0.0.1:5000/api/v1/test2
     ```
 
 * Create Subscription
@@ -236,15 +236,15 @@ Docker, Node/Express, Mocha and chai etc
 
     Grab the token from the account login
 
-    Grab topic name from the list of topics above
+    Grab topic id from the list of topics above
     ```
     POST
         headers = { authorization: 'Bearer <token>'}
 
-        http://localhost:8000/subscribe/<topic_name>
+        http://localhost:8000/api/v1/subscribe/<topicId>
 
         {
-         "url": "http://localhost:5000/test1"
+         "url": "http://localhost:5000/api/v1/test1"
         }
     ```
 
@@ -252,7 +252,7 @@ Docker, Node/Express, Mocha and chai etc
 
     ```
     {
-    "url": "http://localhost:5000/test1",
+    "url": "http://localhost:5000/api/v1/test1",
     "topic": "Test topic"
     }
     ```
@@ -264,13 +264,13 @@ Docker, Node/Express, Mocha and chai etc
 
   Grab the token from the account login.
 
-  Grab topic name from the list of topics above
+  Grab topic id from the list of topics above
 
   ```
   POST
     headers = { authorization: 'Bearer <token>'}
 
-    http://localhost:8000/publish/<topic_name>
+    http://localhost:8000/api/v1/publish/<topicId>
 
     {
     "message": "new data published"
@@ -282,14 +282,16 @@ Docker, Node/Express, Mocha and chai etc
    ```
    [
     {
-        "url": "http://localhost:5000/test1",
+        "url": "http://localhost:5000/api/v1/test1",
         "message": "Success",
-        "status": 201
+        "status": 201,
+        "topic": "Test topic"
     },
     {
-        "url": "http://localhost:5000/test2",
+        "url": "http://localhost:5000/api/v1/test2",
         "message": "Success",
-        "status": 201
+        "status": 201,
+        "topic": "Test topic"
     },
     ...
     ]

@@ -12,10 +12,11 @@ describe('Test topics endpoints', () => {
   before(async () => {
     userData = await createUser();
   });
+
   describe('POST /', () => {
     it('should create topics', (done) => {
       chai.request(app)
-        .post('/topic')
+        .post('/api/v1/topic')
         .set('authorization', `Bearer ${userData[0].token}`)
         .send({ name: 'test topic' })
         .end((err, res) => {
@@ -25,9 +26,10 @@ describe('Test topics endpoints', () => {
         });
     }).timeout(10000);
   });
+
   it('should fetch topics', (done) => {
     chai.request(app)
-      .get('/topic')
+      .get('/api/v1/topic')
       .set('authorization', `Bearer ${userData[0].token}`)
       .end((err, res) => {
         res.should.have.status(200);
