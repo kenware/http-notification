@@ -3,6 +3,11 @@ import Handler from '../utils/handler';
 import Models from '../models';
 
 export default class Account {
+  /**
+   * @param {object} ctx
+   * @param {req} ctx.request
+   * @param {res} ctx.response
+   */
   static async create(req, res) {
     const { email, name } = req.body;
     try {
@@ -21,6 +26,11 @@ export default class Account {
     }
   }
 
+  /**
+   * @param {object} ctx
+   * @param {req} ctx.request
+   * @param {res} ctx.response
+   */
   static async login(req, res) {
     const { email, password } = req.body;
     const message = 'Wrong username or password';
@@ -37,6 +47,11 @@ export default class Account {
     }
   }
 
+  /**
+   * @param {object} ctx
+   * @param {req} ctx.request
+   * @param {res} ctx.response
+   */
   static async accountDetails(req, res) {
     try {
       const data = {

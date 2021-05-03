@@ -3,6 +3,11 @@ import Handler from '../utils/handler';
 import Models from '../models';
 
 export default class PubSub {
+  /**
+   * @param {object} ctx
+   * @param {req} ctx.request
+   * @param {res} ctx.response
+   */
   static async subscription(req, res) {
     const { url } = req.body;
     const { topic } = req;
@@ -21,6 +26,11 @@ export default class PubSub {
     }
   }
 
+  /**
+   * @param {object} ctx
+   * @param {req} ctx.request
+   * @param {res} ctx.response
+   */
   static async publish(req, res) {
     const { topic } = req;
     const where = { topicId: topic.id };

@@ -2,6 +2,11 @@ import Handler from '../utils/handler';
 import Models from '../models';
 
 export default class Topic {
+  /**
+   * @param {object} ctx
+   * @param {req} ctx.request
+   * @param {res} ctx.response
+   */
   static async create(req, res) {
     const { name } = req.body;
     try {
@@ -19,6 +24,11 @@ export default class Topic {
     }
   }
 
+  /**
+   * @param {object} ctx
+   * @param {req} ctx.request
+   * @param {res} ctx.response
+   */
   static async fetch(req, res) {
     try {
       const data = { where: { id: req.decoded.id }, include: { model: Models.Topic, as: 'topics' } };
