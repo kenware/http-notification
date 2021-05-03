@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const credential = process.env;
 module.exports = {
   development: {

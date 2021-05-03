@@ -1,8 +1,11 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import logger from './server/utils/logger';
 import Route from './server/routes';
+
+dotenv.config();
 
 const app = express();
 app.use(cors());

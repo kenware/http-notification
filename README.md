@@ -49,9 +49,43 @@ Docker, Node/Express, Mocha and chai etc
     docker exec -it http-notification_publisher_1 bash
     ```
 * Within the container terminal, run `npm test`
+
+## Manual setup
+
+### Publisher
+* cd into publisher
+* Ensure you have node version 14 installed on your machine. run
+  ```
+  node -v
+  ```
+* create `.env` file, copy all the variable in `.env.sample` file into the `.env` and replace variable where necssary
+
+* run `npm install`
+
+*  run migrations
+   ```
+   sequelize db:migrate
+   ```
+* start dev server with 
+  ```
+  npm run start-dev
+  ```
+* run test with `npm test`
+
+### Subscriber1 or subscriber2
+* cd into subscriber1 or subscriber2
+
+* run `npm install`
+
+* start dev server with
+  ```
+  npm run start-dev
+  ```
+
+
 ## Documentation
 ### Account
-* Create an account: Accounts are created on publisher server
+* Create an account: Accounts and requests are created and made on publisher server
 
     **Request**
     ```
@@ -266,3 +300,9 @@ Docker, Node/Express, Mocha and chai etc
     ```
     logs/combined.log
     ```
+## Aditional Recommendation or features
+
+* The communications between publisher and subscribers should be encripted for security in the case of a very sensitive information. One way to do this is to encript the data in the publisher before sending it and allow subscriber to decript the data. 
+This involves sharing of secrete key between publisher and subsctriber.
+
+* in the case of a less sensitive data, an initial handshake between publisher and subscriber could be established before subscriber begin to receive data.
